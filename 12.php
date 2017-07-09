@@ -13,7 +13,7 @@ function reverseStr(string $str):string
     foreach ($array as $item){
         if ($item!=" " and !empty($item))
         {
-            $result.=$item.".";
+            $result.=$item.". ";
         }
     }
     return $result;
@@ -22,16 +22,17 @@ echo "Первая функция: ".reverseStr($str)."<br>";
 
 function reverseStr2(string $str):string
 {
-    $array = explode(".", $str);
+    $array = explode(". ", $str);
     krsort($array);
-    $result=implode(".",$array);
+    $result='';
+    foreach ($array as $item){
+        if ($item[-1]=='.'){
+            $result.=$item." ";
+        }else{
+            $result.=$item.". ";
+        }
+    }
     return $result;
 }
 
-// сокращенная версия функции
-function reverseStr3(string $str):string
-{
-    return implode(".",(explode(".", $str)));
-}
-
-echo "Вторая функция: ".reverseStr3($str)."<br>";
+echo "Вторая функция: ".reverseStr2($str)."<br>";
