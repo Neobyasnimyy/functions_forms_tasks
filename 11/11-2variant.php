@@ -13,3 +13,23 @@ foreach ($array as &$item){
 }
 // преобразуем массив в строку с разделителем точка и пробел
 echo $string=implode(". ", $array);
+
+
+
+function my_upper($str)
+{
+    $items = [];
+/*    $clauses = explode('. ', $str); // расфасовываем каждое предложение в отдельный элемент массива $clauses*/
+    $clauses = mb_split("\.(\s)?", $str);
+    rtrim(end($clauses), '.'); // убираем точку у последнео предложения
+    foreach ($clauses as $clause) {
+        $items[] = mb_strtoupper(mb_substr($clause, 0, 1)) . mb_substr($clause, 1); // Первй символ в верхний регистр, остальные просто конкатенируются с ним
+    }
+    $text = implode('. ', $items);
+    echo $text;
+}
+
+/* использование в коде*/
+$proverb = "а воз и ныне там.а Васька слушает да ест. а вы, друзья, как ни садитесь, всё в музыканты не годитесь. а король-то — голый. а ларчик просто открывался.а там хоть трава не расти.";
+
+my_upper($proverb);
