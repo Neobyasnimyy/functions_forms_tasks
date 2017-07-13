@@ -10,8 +10,8 @@ $string = $_GET['string'];
 
 function myStrrev(string $str): string {
     $result='';
-    for ($i=strlen($str)-1;$i>=0;$i--){
-        $result.=$str[$i];
+    for ($i=mb_strlen($str)-1;$i>=0;$i--){
+        $result.=mb_substr($str, $i, 1, 'UTF-8');
     }
     return $result;
 };
