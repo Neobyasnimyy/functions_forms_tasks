@@ -4,8 +4,9 @@
 // Директория задается как параметр функции.
 
 
-function myFun($dirName):array {
-    return scandir($dirName,SCANDIR_SORT_NONE);
+// pathName путь к директории, относительно данного файла
+function myFun($pathName):array {
+    return scandir($pathName,SCANDIR_SORT_NONE);
 }
 
 echo "<pre>";
