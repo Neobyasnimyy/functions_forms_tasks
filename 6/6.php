@@ -1,5 +1,5 @@
 <?php
-
+$form_display=true;
 @mkdir("gallery", 0777);// создаем новую директорию
 $uploadDir = './gallery/'; // путь к нашей новой директории
 if (!empty($_POST)===true) {
@@ -27,6 +27,7 @@ if (!empty($_POST)===true) {
         // отправляем файл
         if (copy($_FILES['image']['tmp_name'], $uploadFile)) {
             $message .= "<h4>Файл загружен</h4><br>";
+            $form_display= false;
         }
     }
 }
@@ -46,6 +47,9 @@ if (!empty($_POST)===true) {
             height: 200px;
             max-width 200px;
         }
+        form{
+            display: <?php echo ($form_display)?"block":'none'?>;
+        }
         table{
             margin: 10px auto;
         }
@@ -57,7 +61,7 @@ if (!empty($_POST)===true) {
     print $message;
 }
 ?>
-<form action="6.php" method="POST" enctype="multipart/form-data">
+<form action="6.php" method="POST" enctype="multipart/form-data" >
     <h3>Добавить картинку</h3>
     <p><input type="file" name="image" accept="image/*"></p>
     <p><input type="submit" value="Загрузить" name="submit"></p>
