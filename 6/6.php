@@ -20,7 +20,7 @@ if (!empty($_POST)===true) {
         $message .= "<h4>Не правильный тип файла</h4><br>";
     }
     // создаем путь к новому файлу и добавляем в новае название рандомные чила, чтобы названия файлов не повторялись
-    $uploadFile = $uploadDir .(string)rand(0,1000)."-". basename($_FILES['image']['name']);
+    $uploadFile = $uploadDir .date('jmYgis'). ".".$arr[1];
 
     // картинка сохранена во временной директории, необходима ее скопировать
     if (empty($message)===true) {
