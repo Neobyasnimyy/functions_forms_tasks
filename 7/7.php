@@ -17,7 +17,7 @@ if (!empty($_POST)===true) {
 
         if (empty($message)===true){
             // записываем коммент
-            if (($handle = @fopen($file, 'a')) && (fwrite($handle, $text.PHP_EOL))) {
+            if (($handle = @fopen($file, 'a')) && (fwrite($handle, $text."->".date('j-m-Y g:i').PHP_EOL))) {
 
                 $message[]= "Спасибо за комментарий";
                 fclose($handle);
@@ -90,7 +90,7 @@ if (!empty($_POST)===true) {
 
     <?php if (file_exists($file)):?>
     <div class="row">
-        <div class="col-md-1 col-md-offset-4 col-xs-2 col-xs-offset-2 col title">
+        <div class="col-md-2 col-md-offset-3 col-xs-2 col-xs-offset-2 col title">
             <h4>Имя</h4>
         </div>
         <div class="col-md-3 col-xs-6 col title">
@@ -103,8 +103,9 @@ if (!empty($_POST)===true) {
         <?php foreach ($comments as $item):
             $item= explode("->",$item)?>
             <div class="row row-comment">
-                <div class="col-md-1 col-md-offset-4 col-xs-2 col-xs-offset-2 col">
-                        <p><?php echo $item[0];?></p>
+                <div class="col-md-2 col-md-offset-3 col-xs-2 col-xs-offset-2 col">
+                    <p><?php echo $item[0];?></p>
+                    <p><?php echo $item[2];?></p>
                 </div>
                 <div class="col-md-3 col-xs-6 col">
                     <p><?php echo $item[1];?></p>
