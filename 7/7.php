@@ -93,7 +93,7 @@ if (!empty($_POST)===true) {
         <div class="col-md-1 col-md-offset-4 col-xs-2 col-xs-offset-2 col title">
             <h4>Имя</h4>
         </div>
-        <div class="col-md-4 col-xs-6 col title">
+        <div class="col-md-3 col-xs-6 col title">
             <h4>Комментарий</h4>
         </div>
     </div>
@@ -106,7 +106,7 @@ if (!empty($_POST)===true) {
                 <div class="col-md-1 col-md-offset-4 col-xs-2 col-xs-offset-2 col">
                         <p><?php echo $item[0];?></p>
                 </div>
-                <div class="col-md-4 col-xs-6 col">
+                <div class="col-md-3 col-xs-6 col">
                     <p><?php echo $item[1];?></p>
                 </div>
             </div>
@@ -117,12 +117,6 @@ if (!empty($_POST)===true) {
 
     <div class="row ">
         <div class="col-md-5 col-md-offset-3 col-xs-8 col-xs-offset-2">
-            <div class="form-group" id="addcomment">
-                <div class=" text-center ">
-                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
-                </div>
-            </div>
-
             <?php if (empty($message)===false):?>
                 <div class="alert alert-info" role="alert">
                     <?php foreach ($message as $error):?>
@@ -130,6 +124,12 @@ if (!empty($_POST)===true) {
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+
+            <div class="form-group" id="addcomment">
+                <div class=" text-center ">
+                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                </div>
+            </div>
 
             <form class="form-horizontal" action="7.php" method="POST" novalidate>
 
