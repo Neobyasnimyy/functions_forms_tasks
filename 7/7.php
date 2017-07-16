@@ -2,7 +2,8 @@
 
 $message = [];
 $comments = [];
-$file = "comment.txt";
+$file = "comments.txt";
+
 if (!empty($_POST)===true) {
 
     $name = strip_tags($_POST['name']);
@@ -17,9 +18,11 @@ if (!empty($_POST)===true) {
 
         if (empty($message)===true){
             // записываем коммент
-            if (($handle = @fopen($file, 'a')) && (fwrite($handle, $text."->".date('j-m-Y g:i').PHP_EOL))) {
-
+            if ($handle = @fopen($file, 'a')) {
+                fwrite($handle, $text."->".date('j-m-Y g:i').PHP_EOL);
+                flock ($handle,LOCK_EX);//Блокировка файла,на запись другими процессами
                 $message[]= "Спасибо за комментарий";
+                flock ($handle,LOCK_UN);//СНЯТИЕ БЛОКИРОВКИ
                 fclose($handle);
             }else{
                 $message[]= "Ошибка записи";
@@ -28,18 +31,18 @@ if (!empty($_POST)===true) {
     }
 }
 
-    if (file_exists($file)){
-        if ($handle = @fopen($file, "r")){
-            while (($buffer = fgets($handle)) !== false) {
-                $comments[]=$buffer;
-            }
-            fclose($handle);
-        }else{
-            $message[]= "Ошибка чтения файла с коментариями. Обратитесь к администратору.";
+if (file_exists($file)){
+    if ($handle = @fopen($file, "r")){
+        while (($buffer = fgets($handle)) !== false) {
+            $comments[]=$buffer;
         }
+        fclose($handle);
     }else{
-        $message[]= "У вас есть возможность сделать первый комментарий.";
+        $message[]= "Ошибка чтения файла с коментариями. Обратитесь к администратору.";
     }
+}else{
+    $message[]= "У вас есть возможность сделать первый комментарий.";
+}
 
 ?>
 
@@ -49,13 +52,13 @@ if (!empty($_POST)===true) {
     <meta charset="UTF-8">
     <title>Comments</title>
 
-    <!-- 1. Подключаем скомпилированный и минимизированный файл CSS Bootstrap 3 -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 2. Подключаем библиотеку jQuery, необходимую для работы скриптов Bootstrap 3 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- 3. Подключаем скомпилированный и минимизированный файл JavaScript платформы Bootstrap 3 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <style>
         body{
             background-color: whitesmoke;
